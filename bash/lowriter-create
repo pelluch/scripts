@@ -1,0 +1,26 @@
+#!/bin/bash
+# Create a libreoffice writer document in folder and save it
+# Converts to format according to extension
+if [ -f "$1" ]
+then
+	lowriter "$1" 2> /dev/null > /dev/null &
+else
+	fullpath="$(realpath $1)"
+	output="$1"
+	dir=$(realpath $(dirname "$1"))
+	filename=$(basename "$1")
+	extension="${filename##*.}"
+	filename="${filename%.*}"
+	tmpdir="$(mktemp -d)"
+	tmpfile=$(mktemp --tmpdir=$tmpdir)
+
+	if [ "$extension" == "$filename" ] || [ "$extension" == "txt" ]
+	then
+		echo " " > "$fullpath"
+	else
+		lowriter --convert-to "$extension" --outdir "$tmpdir" --nologo "$tmpfile" > /dev/null
+		cp "$tmpdir/tmp.$extension" "$fullpath"
+		rm -rf "$tmpdir"
+	fi
+	lowriter "$1" 2> /dev/null > /dev/null &
+fi
