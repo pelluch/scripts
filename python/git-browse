@@ -15,12 +15,19 @@ def main():
 	parser.add_argument('-g', '--gui', action='store_true')
 	parser.add_argument('-f', '--file-browser', action='store_true')
 	parser.add_argument('-c', '--cd', action='store_true')
+	parser.add_argument('-i', '--interactive', action='store_true')
 
 	opts, unknown = parser.parse_known_args()
 	repos = validate_config()
+	#print(unknown)
+	
 
 	if opts.regex:
 		repos = [repo for repo in repos if re.search(opts.regex, repo)]
+
+	if len(repos) == 0:
+		print('No repositories to browse.')
+		return 0
 
 	for idx, repo in enumerate(repos):
 		print((str(idx+1) + '. ' + os.path.basename(repo)))
@@ -28,28 +35,52 @@ def main():
 	if not opts.regex:
 		return 0
 
-	choices = input('Choose a repository to browse\n').split(' ')
+	choices = input('Choose a repository to browse (ranges can go)\n').split(' ')
 	chosen = []
 	for choice in choices:
-		if choice == '' and len(choices) == 1:
-			chosen.append(repos[0])
-		elif choice.isdigit():
-			number_choice = int(choice) - 1
-			if number_choice in range(len(repos)):
-				chosen.append(repos[number_choice])
+		if choice == '':
+			if len(repos) == 1:
+				chosen.append(repos[0])
 			else:
-				print('Number ' + str(choice) + ' out ouf range.')
+				print('Must choose a number')
+				return 1
+		elif '-' in choice:
+			nums = choice.split('-')
+			if len(nums) != 2:
+				print('Invalid range: ' + choice)
+				return 1		
+			try:
+				first = int(nums[0])-1
+				last = int(nums[1])-1
+				if first in range(len(repos)) and last in range(len(repos)):
+					for i in range(first, last + 1):
+						chosen.append(repos[i])
+				else:
+					print('Numbers out of range')
+					return 1
+			except ValueError:
+				print('Range does not include proper numbers')
 				return 1
 		else:
-			print('Invalid option.')
-			return 2
+			try:
+				number_choice = int(choice) - 1
+				if number_choice in range(len(repos)):
+					chosen.append(repos[number_choice])
+				else:
+					print('Number ' + str(choice) + ' out ouf range.')
+					return 1
+			except ValueError:
+				print(str(choice) + ' is not a proper number')
+				return 1
     
+	chosen = sorted(set(chosen))
 	left = len(chosen)
+
 	for repository in chosen:
-		git_call = ['/usr/bin/git']
-		if opts.git_command:		
-			print('Executing command ' + opts.git_command[0] + ' in ' + repository)
-			git_call += opts.git_command
+		git_call = ['git']
+		if opts.git_command:	
+			git_call = 	git_call + opts.git_command + unknown
+			print('Executing command ' + ' '.join(git_call) + ' in ' + repository)
 			subprocess.call(git_call, cwd =repository)
 
 		f = open(os.devnull, 'w')	
@@ -64,8 +95,7 @@ def main():
 		f.close()
 		cont = None
 
-		
-		while left > 1 and cont == None:
+		while opts.interactive and left > 1 and cont == None:
 			left -= 1
 			cont = str(input('Continue? y/n\n'))
 			if cont.lower() in ['n', 'no']:
@@ -74,7 +104,7 @@ def main():
 			elif cont.lower() not in ['y', 'yes']:
 				print('Invalid input')
 				cont = None
-
+		print('')
 	return 0
 
 if __name__ == "__main__":
