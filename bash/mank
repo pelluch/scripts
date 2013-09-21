@@ -1,0 +1,3 @@
+#!/bin/bash
+# View man page in konqueror
+/usr/bin/konqueror "man:$@" > /dev/null 2> /dev/null & disown

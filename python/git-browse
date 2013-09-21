@@ -10,20 +10,23 @@ import numpy
 def main():
 
 	parser = argparse.ArgumentParser(description='Browse git repositories in home folder.')
-	parser.add_argument('regex', nargs='?', default=None)
+	parser.add_argument('regexp', nargs='?', default=None)
 	parser.add_argument('git_command', nargs='*', default=None)
 	parser.add_argument('-g', '--gui', action='store_true')
 	parser.add_argument('-f', '--file-browser', action='store_true')
 	parser.add_argument('-c', '--cd', action='store_true')
 	parser.add_argument('-i', '--interactive', action='store_true')
+	parser.add_argument('-r', '--regex', nargs='?')
+	parser.add_argument('--command', nargs='?')
 
 	opts, unknown = parser.parse_known_args()
 	repos = validate_config()
-	#print(unknown)
-	
-
+	regex = opts.regexp
 	if opts.regex:
-		repos = [repo for repo in repos if re.search(opts.regex, repo)]
+		regex = opts.regex
+
+	if regex:
+		repos = [repo for repo in repos if re.search(regex, repo)]
 
 	if len(repos) == 0:
 		print('No repositories to browse.')
@@ -31,9 +34,6 @@ def main():
 
 	for idx, repo in enumerate(repos):
 		print((str(idx+1) + '. ' + os.path.basename(repo)))
-
-	if not opts.regex:
-		return 0
 
 	choices = input('Choose a repository to browse (ranges can go)\n').split(' ')
 	chosen = []
