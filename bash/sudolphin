@@ -1,0 +1,3 @@
+#!/bin/bash
+# Avoid useless dolphin warnings when running from shell
+kdesu /usr/bin/dolphin "$@" 2> /dev/null > /dev/null &
