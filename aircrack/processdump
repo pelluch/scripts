@@ -1,0 +1,48 @@
+#!/bin/env python
+
+import sys
+import getopt
+import subprocess
+import os
+
+def main():
+
+    opts, args = getopt.getopt(sys.argv[1:], "h", ["help"])
+
+    for arg in args:
+        print(arg)
+
+    all_info = []
+    with open('tmp/airodump-01.csv', 'r') as dump:
+        dump.readline()
+        dump.readline()
+        for line in dump:
+            if line.rstrip() == '':
+                break
+            else:
+                current_info = {}
+                station_info = line.rstrip().split(',')
+                bssid = station_info[0].strip()
+                channel = station_info[3].strip()
+                data = station_info[10].strip()
+                essid = station_info[13].strip()
+
+                current_info['bssid'] = bssid
+                current_info['channel'] = channel
+                current_info['data'] = int(data)
+                current_info['essid'] = essid
+
+                all_info.append(current_info)
+
+    if len(all_info) > 0:
+        best_ap = all_info[0]
+        for info in all_info:
+            if info['data'] > best_ap ['data']:
+                best_ap = info
+
+        print(best_ap)
+    else:
+        print('sorry, no suitable AP found')
+
+if __name__ == "__main__":
+    main()
