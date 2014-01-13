@@ -1,6 +1,0 @@
-#!/bin/bash
-lupdatedb
-for f in $(llocate -r "^\(.*/\)*\.git$" | grep $HOME)
-do
-	echo $(dirname $f)
-done

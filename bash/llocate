@@ -1,4 +1,0 @@
-#!/bin/bash
-# locates files only in use directory, ignoring dot directories
-[ -f "$HOME/.locatedb/locate.db" ] && lupdatedb
-locate -d "$HOME/.locatedb/locate.db" "$@"
