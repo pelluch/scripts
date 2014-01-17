@@ -1,0 +1,4 @@
+#!/bin/bash
+
+args="$@"
+adb shell am startservice -e copy "$args" com.pelluch.copypaster/.CopyService

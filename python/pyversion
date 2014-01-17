@@ -1,0 +1,10 @@
+#!/bin/bash
+
+version="$1"
+if [ "$version" = "2" -o "$version" = "3" ]; then
+	[ -e $HOME/bin/python ] && rm $HOME/bin/python
+	ln -s "/usr/bin/python$version" $HOME/bin/python
+else
+	echo "Invalid version"
+fi
+

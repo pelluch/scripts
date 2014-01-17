@@ -1,2 +1,2 @@
 #!/bin/bash
-export PATH=$HOME/bin/android:/opt/java6/bin:$PATH
+export PATH=/opt/java6/bin:$PATH
