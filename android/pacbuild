@@ -1,0 +1,11 @@
+#!/bin/bash
+
+export PACMAN_SRC=/run/media/pablo/storage/data/android/pacman/src
+export JAVA_HOME=/opt/java6
+export PATH=/opt/java6/bin:$PATH
+export USE_CCACHE=1
+export OUT_DIR_COMMON_BASE=/home/pablo/data/android/pacman/builds
+export CCACHE_DIR=/home/pablo/data/android/pacman/ccache
+
+cd $PACMAN_SRC
+./build-pac.sh -f -v mako > /home/pablo/data/android/pacman/log/build.log 2> /home/pablo/data/android/pacman/log/err.log
