@@ -2,8 +2,9 @@
 
 version="$1"
 if [ "$version" = "2" -o "$version" = "3" ]; then
-	[ -e $HOME/bin/python ] && rm $HOME/bin/python
-	ln -s "/usr/bin/python$version" $HOME/bin/python
+	sudo rm "/usr/bin/python" && sudo ln -s "/usr/bin/python$version" "/usr/bin/python"
+	echo "Verifying current version: "
+	/usr/bin/python --version
 else
 	echo "Invalid version"
 fi

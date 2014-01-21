@@ -4,7 +4,7 @@ export CYANOGEN_SRC=/run/media/pablo/storage/data/android/cyanogen/src
 export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
-export OUT_DIR_COMMON_BASE=/home/pablo/cyanogen/builds
+export OUT_DIR_COMMON_BASE=/home/pablo/data/android/cyanogen/builds
 export CCACHE_DIR=/home/pablo/data/android/cyanogen/ccache
 
 cd $CYANOGEN_SRC
@@ -18,9 +18,9 @@ cd device/lge/mako
 ./extract-files.sh
 croot
 
-T="$(date +%s)"
+#T="$(date +%s)"
 brunch mako
-T="$(($(date +%s)-T))"
+#T="$(($(date +%s)-T))"
 
-echo "Time in seconds: ${T}"
-
+#echo "Time in seconds: ${T}"
+echo "All done"

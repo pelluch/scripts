@@ -1,0 +1,12 @@
+#!/bin/bash
+
+BIN_DIR="$HOME/bin"
+
+for d in $(pwd)/* ; do	
+	if [ -d "$d" ]; then
+		cd "$d"
+		for script in $(pwd)/* ; do
+			ln -s "$script" "$BIN_DIR"
+		done
+	fi
+done

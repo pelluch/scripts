@@ -1,2 +1,0 @@
-#!/bin/bash
-export PATH=/opt/java6/bin:$PATH
