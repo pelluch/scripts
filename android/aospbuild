@@ -22,5 +22,6 @@ export T="$(($(date +%s)-T))"
 echo "Time in seconds: ${T}"
 
 pyversion 3
+rm -f $HOME/bin/make
 
 echo "All done!"
