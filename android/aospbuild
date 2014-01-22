@@ -3,22 +3,24 @@
 export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
-export OUT_DIR_COMMON_BASE=/home/pablo/data/android/aosp/builds/generic
+export OUT_DIR_COMMON_BASE=/home/pablo/data/android/aosp/build
 export CCACHE_DIR=/home/pablo/data/android/aosp/ccache
 export AOSP_SRC=/run/media/pablo/storage/data/android/aosp/src
 
-# pyversion 2
-cd $AOSP_SRC
+pyversion 2
 
-sudo ln -s -f /usr/bin/python2 /usr/local/bin/python
-sudo ln -s -f $HOME/src/make-3.82/make /usr/local/bin/make
+cd $AOSP_SRC
+ln -s -f $HOME/src/make-3.82/make $HOME/bin/make
 
 . build/envsetup.sh
-lunch aosp_arm-eng
+lunch aosp_mako-userdebug
 
-T="$(date +%s)"
+export T="$(date +%s)"
 make -j8
-T="$(($(date +%s)-T))"
+export T="$(($(date +%s)-T))"
 
 echo "Time in seconds: ${T}"
+
+pyversion 3
+
 echo "All done!"

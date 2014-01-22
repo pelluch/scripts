@@ -4,8 +4,17 @@ export PACMAN_SRC=/run/media/pablo/storage/data/android/pacman/src
 export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
-export OUT_DIR_COMMON_BASE=/home/pablo/data/android/pacman/builds
+export OUT_DIR_COMMON_BASE=/home/pablo/data/android/pacman/build
 export CCACHE_DIR=/home/pablo/data/android/pacman/ccache
 
 cd $PACMAN_SRC
-./build-pac.sh -f -v mako > /home/pablo/data/android/pacman/log/build.log 2> /home/pablo/data/android/pacman/log/err.log
+
+pyversion 2
+
+export T="$(date +%s)"
+./build-pac.sh -c mako
+
+export T="$(($(date +%s)-T))"
+echo "Time in seconds: ${T}"
+
+pyversion 3

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export ARCH=arm
+export SUBARCH=arm
+export CROSS_COMPILE=arm-eabi-
+export PATH=/run/media/pablo/storage/data/android/cyanogen/src/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:$PATH
+export BUILD_DIR=/run/media/pablo/storage/data/android/kernels/build
+
+rm -rf "$BUILD_DIR/*"
+cd /run/media/pablo/storage/data/android/kernels/android_kernel_google_msm
+
+make mrproper
+make O=$BUILD_DIR cyanogen_mako_defconfig
+make O=$BUILD_DIR 
