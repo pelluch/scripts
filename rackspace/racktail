@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh deployer@162.209.101.215 "tail -f /srv/http/www/trumpit/current/log/production.log"

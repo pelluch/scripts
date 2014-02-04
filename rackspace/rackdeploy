@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cap production deploy
+scp .env deployer@162.209.101.215:/srv/http/www/trumpit/current/.env
+ssh -t deployer@162.209.101.215 "sudo systemctl restart nginx"

@@ -6,13 +6,14 @@ export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
 export OUT_DIR_COMMON_BASE=/home/pablo/data/android/pacman/build
 export CCACHE_DIR=/home/pablo/data/android/pacman/ccache
-
+export LOG_DIR=/home/pablo/data/android/pacman/logs
 cd $PACMAN_SRC
 
 pyversion 2
 
 export T="$(date +%s)"
-./build-pac.sh -c mako
+
+./build-pac.sh mako
 
 export T="$(($(date +%s)-T))"
 echo "Time in seconds: ${T}"
