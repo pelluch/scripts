@@ -1,0 +1,22 @@
+#!/bin/bash
+
+export AOKP_SRC=/run/media/pablo/storage/data/android/src/aokp
+export JAVA_HOME=/opt/java6
+export PATH=/opt/java6/bin:$PATH
+export USE_CCACHE=1
+export OUT_DIR_COMMON_BASE=/home/pablo/data/android/builds/aokp
+export CCACHE_DIR=/home/pablo/data/android/builds/aokp/ccache
+
+mkdir -p "$CCACHE_DIR"
+mkdir -p "$OUT_DIR_COMMON_BASE"
+
+pyversion 2
+
+cd "$AOKP_SRC"
+. build/envsetup.sh
+
+time brunch aokp_mako-userdebug
+
+echo "All done"
+
+pyversion 3

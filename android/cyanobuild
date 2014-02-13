@@ -1,11 +1,11 @@
 #!/bin/bash
 
-export CYANOGEN_SRC=/run/media/pablo/storage/data/android/cyanogen/src
+export CYANOGEN_SRC=/run/media/pablo/storage/data/android/src/cyanogen
 export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
-export OUT_DIR_COMMON_BASE=/home/pablo/data/android/cyanogen/build
-export CCACHE_DIR=/home/pablo/data/android/cyanogen/ccache
+export OUT_DIR_COMMON_BASE=/home/pablo/data/android/builds/cyanogen
+export CCACHE_DIR=/home/pablo/data/android/builds/cyanogen/ccache
 
 pyversion 2
 
