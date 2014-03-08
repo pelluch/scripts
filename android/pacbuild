@@ -1,21 +1,21 @@
 #!/bin/bash
 
-export PACMAN_SRC=/run/media/pablo/storage/data/android/pacman/src
+export PACMAN_SRC=/home/pablo/android/src/pacman
 export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
-export OUT_DIR_COMMON_BASE=/home/pablo/data/android/pacman/build
-export CCACHE_DIR=/home/pablo/data/android/pacman/ccache
-export LOG_DIR=/home/pablo/data/android/pacman/logs
-cd $PACMAN_SRC
+export OUT_DIR_COMMON_BASE=/home/pablo/android/builds
+export CCACHE_DIR=/home/pablo/android/builds/pacman/ccache
+
+mkdir -p "$CCACHE_DIR"
+mkdir -p "$OUT_DIR_COMMON_BASE"
 
 pyversion 2
 
-export T="$(date +%s)"
+cd $PACMAN_SRC
 
 ./build-pac.sh mako
 
-export T="$(($(date +%s)-T))"
-echo "Time in seconds: ${T}"
-
 pyversion 3
+
+echo "All done"

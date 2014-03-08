@@ -4,8 +4,8 @@ PROJECT="$1"
 USER="$2"
 [ "" = "$USER" ] && USER="deployer"
 HOST=""
-if [ "$PROJECT" == "veenda" ] ; then
-	HOST="162.209.101.215"
+if [ "$PROJECT" == "phoenix" ] ; then
+	HOST="162.242.210.53"
 elif [ "$PROJECT" == "trumpit" ] ; then
 	HOST="162.209.102.221"
 else
@@ -15,4 +15,4 @@ fi
 
 echo "Sshing to $PROJECT at $USER@$HOST"
 
-ssh "$USER@$HOST" 'sudo reboot' &
+ssh -p 30000 "$USER@$HOST" 'sudo reboot' &
