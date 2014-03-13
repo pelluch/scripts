@@ -5,17 +5,19 @@ export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
 export OUT_DIR_COMMON_BASE=/home/pablo/android/builds
-export CCACHE_DIR=/home/pablo/android/builds/pacman/ccache
+export CCACHE_DIR=/home/pablo/android/builds/ccache
 
 mkdir -p "$CCACHE_DIR"
 mkdir -p "$OUT_DIR_COMMON_BASE"
 
-pyversion 2
+sudo pyversion 2
 
 cd $PACMAN_SRC
 
 ./build-pac.sh mako
 
-pyversion 3
+sudo pyversion 3
+
+rm -rf "$CCACHE_DIR"
 
 echo "All done"

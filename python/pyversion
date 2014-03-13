@@ -1,11 +1,22 @@
 #!/bin/bash
 
 version="$1"
-if [ "$version" = "2" -o "$version" = "3" ]; then
-	sudo rm "/usr/bin/python" && sudo ln -s "/usr/bin/python$version" "/usr/bin/python"
-	echo "Verifying current version: "
-	/usr/bin/python --version
+
+if [ "$UID" -ne 0 ] ; then
+	if [ "$version" = "2" -o "$version" = "3" ]; then
+		rm -f "$HOME/bin/python" && ln -s -f "/usr/bin/python$version" "$HOME/bin/python"
+		echo "Verifying current version: "
+		$HOME/bin/python --version
+	else
+		echo "Invalid version"
+	fi
 else
-	echo "Invalid version"
+	if [ "$version" = "2" -o "$version" = "3" ]; then
+		rm -f "/usr/bin/python" && ln -s -f "/usr/bin/python$version" "/usr/bin/python"
+		echo "Verifying current version: "
+		/usr/bin/python --version
+	else
+		echo "Invalid version"
+	fi
 fi
 

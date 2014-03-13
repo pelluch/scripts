@@ -15,4 +15,4 @@ fi
 
 echo "Sshing to $PROJECT at $USER@$HOST"
 
-ssh -p 30000 "$USER@$HOST" 'sudo reboot' &
+ssh "$USER@$HOST" 'sudo reboot'
