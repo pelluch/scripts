@@ -7,6 +7,9 @@ export USE_CCACHE=1
 export OUT_DIR_COMMON_BASE=/home/pablo/android/builds
 export CCACHE_DIR=/home/pablo/android/builds/ccache
 
+rm -rf "$CCACHE_DIR"
+rm -rf "$OUT_DIR_COMMON_BASE/pacman"
+
 mkdir -p "$CCACHE_DIR"
 mkdir -p "$OUT_DIR_COMMON_BASE"
 
