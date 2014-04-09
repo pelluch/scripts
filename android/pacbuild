@@ -6,6 +6,7 @@ export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
 export OUT_DIR_COMMON_BASE=/home/pablo/android/builds
 export CCACHE_DIR=/home/pablo/android/builds/ccache
+export PREBUILTS_DIR=/home/pablo/android/prebuilt/pacman
 
 rm -rf "$CCACHE_DIR"
 rm -rf "$OUT_DIR_COMMON_BASE/pacman"
@@ -22,5 +23,9 @@ cd $PACMAN_SRC
 sudo pyversion 3
 
 rm -rf "$CCACHE_DIR"
+
+rm $PREBUILTS_DIR/pac_mako_4.4*
+cd "$OUT_DIR_COMMON_BASE/pacman/target/product/mako"
+cp pac_mako_4.4*zip "$PREBUILTS_DIR/"
 
 echo "All done"
