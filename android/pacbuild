@@ -14,17 +14,17 @@ rm -rf "$OUT_DIR_COMMON_BASE/pacman"
 mkdir -p "$CCACHE_DIR"
 mkdir -p "$OUT_DIR_COMMON_BASE"
 
-sudo pyversion 2
-
+sudo pyversion 3
 cd $PACMAN_SRC
+repo sync -j4
 
+sudo pyversion 2
 ./build-pac.sh hammerhead
-
 sudo pyversion 3
 
 rm -rf "$CCACHE_DIR"
 
-rm $PREBUILTS_DIR/pac_mako_4.4*
+rm -r $PREBUILTS_DIR/pac_mako_4.4*
 cd "$OUT_DIR_COMMON_BASE/pacman/target/product/hammerhead"
 cp pac_mako_4.4*zip "$PREBUILTS_DIR/"
 

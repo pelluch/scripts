@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo 'Backing up to file...'
+ssh deployer@trumpit.cl 'pg_dump -d trumpit_web_production -U trumpit > ~/dump.sql'
+echo 'Done. Downloading to current folder...'
+scp deployer@trumpit.cl:~/dump.sql .
+echo 'Done. Deleting remote file...'
+ssh deployer@trumpit.cl 'rm ~/dump.sql'
+echo 'Done.'
