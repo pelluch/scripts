@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for f in $(find $1 | grep .png) ; do
+	convert -quality 0 +dither -colors 256 "$f" "$f"
+	optipng "$f"
+done
