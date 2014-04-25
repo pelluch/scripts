@@ -1,0 +1,3 @@
+#!/bin/bash
+
+vncviewer 196.168.0.16
