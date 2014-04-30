@@ -1,0 +1,48 @@
+#!/bin/bash
+
+while getopts ":f:n:i:" opt; do
+
+	case $opt in
+		f)
+			folder=$OPTARG
+			;;
+		n)
+			name=$OPTARG
+			;;
+		i)
+			id=$OPTARG
+			;;
+		\?)
+      		echo "Invalid option: -$OPTARG" >&2
+      		exit 1
+      		;;
+      	:)
+      		echo "Option -$OPTARG requires an argument." >&2
+      		exit 1
+      		;;
+	esac
+done
+
+if [[ -z "$folder" ]] || [[ -z "$name" ]] || [[ -z "$id" ]]; then
+	echo "Usage: tireplace -f [FOLDER] -n [NAME] -i [ID]"
+	exit 1
+fi
+
+
+export MODULE_NAME="$name"
+export MODULE_ID="$id"
+export UPPER_MODULE_NAME="${MODULE_NAME^}"
+export UUID=$(uuidgen)
+out="$(pwd)/$MODULE_NAME"
+
+for file in $(find $folder -not -iwholename '*.git/*') ; do
+	transformed=$(echo $file | perl -p -i -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' 2> /dev/null)
+	if [ -f "$file" ] ; then
+		file=${file#$folder/}
+		transformed=${transformed#$folder/}
+		perl -p -i -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' < "template/$file" 2> /dev/null > "$MODULE_NAME/$transformed"
+	else
+		directory=${transformed#$folder/}
+		mkdir -p "$out/$directory"
+    fi
+done

@@ -7,5 +7,5 @@ cd $SRCDIR
 for folder in $(pwd)/* ; do
 	cd "$folder"
 	echo $folder
-	makepkg -s && mv *.xz "$BINDIR/" && cd .. && rm -rf "$folder"
+	makepkg -sf && mv *.xz "$BINDIR/" && cd .. && rm -rf "$folder"
 done
