@@ -1,11 +1,8 @@
 #!/bin/bash
 
-while getopts ":f:n:i:" opt; do
+while getopts ":n:i:" opt; do
 
 	case $opt in
-		f)
-			folder=$OPTARG
-			;;
 		n)
 			name=$OPTARG
 			;;
@@ -23,10 +20,12 @@ while getopts ":f:n:i:" opt; do
 	esac
 done
 
-if [[ -z "$folder" ]] || [[ -z "$name" ]] || [[ -z "$id" ]]; then
-	echo "Usage: tireplace -f [FOLDER] -n [NAME] -i [ID]"
+if [[ -z "$TEMPLATE_FOLDER" ]] || [[ -z "$name" ]] ; then
+	echo "Usage: tireplace -n [NAME] -i [ID], TEMPLATE_FOLDER must be set"
 	exit 1
 fi
+
+[[ -z "$id" ]] && id="com.pelluch.$name"
 
 
 export MODULE_NAME="$name"
@@ -35,14 +34,14 @@ export UPPER_MODULE_NAME="${MODULE_NAME^}"
 export UUID=$(uuidgen)
 out="$(pwd)/$MODULE_NAME"
 
-for file in $(find $folder -not -iwholename '*.git/*') ; do
+for file in $(find $TEMPLATE_FOLDER -not -iwholename '*.git/*') ; do
 	transformed=$(echo $file | perl -p -i -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' 2> /dev/null)
 	if [ -f "$file" ] ; then
-		file=${file#$folder/}
-		transformed=${transformed#$folder/}
-		perl -p -i -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' < "template/$file" 2> /dev/null > "$MODULE_NAME/$transformed"
+		file=${file#$TEMPLATE_FOLDER/}
+		transformed=${transformed#$TEMPLATE_FOLDER/}
+		perl -p -i -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' < "$TEMPLATE_FOLDER/$file" 2> /dev/null > "$MODULE_NAME/$transformed"
 	else
-		directory=${transformed#$folder/}
+		directory=${transformed#$TEMPLATE_FOLDER/}
 		mkdir -p "$out/$directory"
     fi
 done
