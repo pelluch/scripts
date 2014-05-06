@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -X POST -H "Content-Type: application/json" -d '{ "auth" : { "RAX-KSKEY:apiKeyCredentials" : { "username" : "dcarey", "apiKey" : "e68033c03ccd4aa7036e978fb098a37e"  } } }' https://identity.api.rackspacecloud.com/v2.0/tokens | python -mjson.tool

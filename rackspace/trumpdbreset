@@ -7,3 +7,4 @@ cd ..
 dropdb trumpit_web_development
 createdb trumpit_web_development
 psql -f db/dump.sql -U trumpit -d trumpit_web_development
+rm -f ~/src/trumpit/trumpit-web/db/dump.sql
