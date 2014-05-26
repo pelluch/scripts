@@ -1,10 +1,10 @@
 #!/bin/bash
 
-cd ~/src/trumpit/trumpit-web/db
+cd ~/src/trumpit/trumpit-api/db
 rm -f dump.sql
 pgbackup
 cd ..
-dropdb trumpit_web_development
-createdb trumpit_web_development
-psql -f db/dump.sql -U trumpit -d trumpit_web_development
-rm -f ~/src/trumpit/trumpit-web/db/dump.sql
+dropdb trumpit_dev
+createdb trumpit_dev
+psql -f db/dump.sql -U trumpit -d trumpit_dev
+rm -f ~/src/trumpit/trumpit-api/db/dump.sql

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh deployer@69.164.195.183
