@@ -1,20 +1,3 @@
 #!/bin/bash
 
-PROJECT="$1"
-USER="$2"
-[ "" = "$USER" ] && USER="deployer"
-HOST=""
-if [ "$PROJECT" == "phoenix" ] ; then
-	HOST="162.242.210.53"
-elif [ "$PROJECT" == "trumpit" ] ; then
-	HOST="162.209.102.221"
-elif [ "$PROJECT" == "einstein" ] ; then
-	HOST="190.164.150.241"
-else
-	echo "Usage: racklogin PROJECT [ USER ]"
-	exit -1
-fi
-
-echo "Sshing to $PROJECT at $USER@$HOST"
-
-ssh "$USER@$HOST" 
+ssh deployer@69.164.195.183

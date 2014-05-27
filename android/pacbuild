@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -z $1 ] ; then
+	echo 'Please specify a device (mako/hammerhead)'
+	exit 1
+fi
+
+device=$1
 export PACMAN_SRC=/home/pablo/android/src/pacman
 export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:$PATH
@@ -8,8 +14,13 @@ export OUT_DIR_COMMON_BASE=/home/pablo/android/builds
 export CCACHE_DIR=/home/pablo/android/builds/ccache
 export PREBUILTS_DIR=/home/pablo/android/prebuilt/pacman
 
-rm -rf "$CCACHE_DIR"
-rm -rf "$OUT_DIR_COMMON_BASE/pacman"
+# rm -rf "$CCACHE_DIR"
+rm -rf "$OUT_DIR_COMMON_BASE/pacman/target/product/$device"
+rm -rf "$OUT_DIR_COMMON_BASE/pacman/target/common"
+rm -rf "$OUT_DIR_COMMON_BASE/pacman/host"
+rm -f "$OUT_DIR_COMMON_BASE/pacman/casecheck.txt"
+rm -f "$OUT_DIR_COMMON_BASE/pacman/CaseCheck.txt"
+rm -f "$OUT_DIR_COMMON_BASE/pacman/versions_checked.mk"
 
 mkdir -p "$CCACHE_DIR"
 mkdir -p "$OUT_DIR_COMMON_BASE"
@@ -19,13 +30,11 @@ cd $PACMAN_SRC
 repo sync -j4
 
 sudo pyversion 2
-./build-pac.sh hammerhead
+./build-pac.sh $device
 sudo pyversion 3
 
-rm -rf "$CCACHE_DIR"
-
-rm -r $PREBUILTS_DIR/pac_mako_4.4*
-cd "$OUT_DIR_COMMON_BASE/pacman/target/product/hammerhead"
-cp pac_mako_4.4*zip "$PREBUILTS_DIR/"
+rm -f $PREBUILTS_DIR/pac_$device*
+cd $OUT_DIR_COMMON_BASE/pacman/target/product/$device
+cp pac_$device_4.4*zip "$PREBUILTS_DIR/"
 
 echo "All done"

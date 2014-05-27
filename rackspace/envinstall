@@ -1,0 +1,40 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+	echo "Usage: envinstall envfile trumpit/phoenix"
+	exit 1
+fi
+
+if [ -z "$2" ]; then
+	echo "Usage: envinstall envfile trumpit/phoenix"
+	exit 1
+fi
+
+FILE="$1"
+
+if [ -f $FILE ]; then
+	PROJECT="$2"
+
+	HOST=""
+	if [ "$PROJECT" == "phoenix" ] ; then
+		HOST="162.242.210.53"
+	elif [ "$PROJECT" == "trumpit" ] ; then
+		HOST="162.209.102.221"
+	elif [ "$PROJECT" == "einstein" ] ; then
+		HOST="190.164.150.241"
+	else
+		echo "Usage: envinstall envfile trumpit/phoenix"
+		exit 1
+	fi
+
+	scp "$FILE" deployer@"$HOST":~/.env
+	ssh deployer@"$HOST" "cp ~/.env /srv/http/www/trumpit/api/shared/.env"
+	ssh deployer@"$HOST" "cp ~/.env /srv/http/www/trumpit/client/shared/.env"
+	ssh deployer@"$HOST" "rm ~/.env"
+
+	exit 0
+fi
+
+echo "File does not exist"
+exit 1
+
