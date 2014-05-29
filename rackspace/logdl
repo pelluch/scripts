@@ -1,0 +1,3 @@
+#!/bin/bash
+
+scp deployer@69.164.195.183:/srv/http/www/trumpit/api/current/log/production.log .
