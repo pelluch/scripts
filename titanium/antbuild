@@ -1,5 +1,0 @@
-#!/bin/bash
-
-sudo pyversion 2
-ant
-sudo pyversion 3
