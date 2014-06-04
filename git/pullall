@@ -4,6 +4,7 @@ for d in $(pwd)/* ; do
 	cd "$d"
 	if [ -d ".git" ]; then
 		echo "Found git repository at $d"
+        git checkout master
 		git pull origin master
 	fi
 	cd ..
