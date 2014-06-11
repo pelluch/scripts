@@ -11,18 +11,10 @@ export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:$PATH
 export USE_CCACHE=1
 export OUT_DIR_COMMON_BASE=/home/pablo/android/builds
-export CCACHE_DIR=/home/pablo/android/builds/ccache
-export PREBUILTS_DIR=/home/pablo/android/prebuilt/pacman
+export CCACHE_DIR=$HOME/.ccache
+export PREBUILTS_DIR=/home/pablo/android/pacman
 
-# rm -rf "$CCACHE_DIR"
-rm -rf "$OUT_DIR_COMMON_BASE/pacman/target/product/$device"
-rm -rf "$OUT_DIR_COMMON_BASE/pacman/target/common"
-rm -rf "$OUT_DIR_COMMON_BASE/pacman/host"
-rm -f "$OUT_DIR_COMMON_BASE/pacman/casecheck.txt"
-rm -f "$OUT_DIR_COMMON_BASE/pacman/CaseCheck.txt"
-rm -f "$OUT_DIR_COMMON_BASE/pacman/versions_checked.mk"
-
-mkdir -p "$CCACHE_DIR"
+rm -rf $OUT_DIR_COMMON_BASE/pacman/*
 mkdir -p "$OUT_DIR_COMMON_BASE"
 
 sudo pyversion 3
@@ -33,8 +25,9 @@ sudo pyversion 2
 ./build-pac.sh $device
 sudo pyversion 3
 
-rm -f $PREBUILTS_DIR/pac_$device*
 cd $OUT_DIR_COMMON_BASE/pacman/target/product/$device
-cp pac_$device_4.4*zip "$PREBUILTS_DIR/"
+for f in pac_*zip* ; do
+	cp $f "$PREBUILTS_DIR/"
+done
 
 echo "All done"

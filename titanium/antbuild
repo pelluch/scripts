@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo pyversion 2
+ant dist
+sudo pyversion 3

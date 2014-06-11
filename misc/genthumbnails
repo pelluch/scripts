@@ -1,0 +1,10 @@
+#!/bin/bash
+
+find / -type f -regex ".*\.\(jpg\|jpeg\|JPG\|JPEG\)" -print0 | xargs -0 sh -c 'for filename; do 
+echo "$filename";
+convert "$filename" -thumbnail 48x48 /home/pablo/thumbnails/"$(uuidgen)".jpg; 
+done' fnord
+	# id=$(uuidgen)
+	# echo $picture
+	#  "$picture" -thumbnail 48x48 "$HOME/thumbnails/$id.jpg"
+# done

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+adb shell am start -a android.intent.action.VIEW -e message 'hello' -c android.intent.category.DEFAULT -n com.pelluch.gcm/com.pelluch.gcm.MainActivity 

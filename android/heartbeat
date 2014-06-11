@@ -1,0 +1,5 @@
+#!/bin/bash
+
+adb shell am broadcast -a com.google.android.intent.action.MCS_HEARTBEAT
+adb shell am broadcast -a com.google.android.intent.action.GTALK_HEARTBEAT
+
