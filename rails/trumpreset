@@ -1,0 +1,11 @@
+#!/bin/bash
+
+killall ruby
+guake -n /home/pablo/src/trumpit/trumpit-api
+guake -e "rpush development"
+guake -e "rails s -p 3001"
+guake -e "exit"
+
+guake -n /home/pablo/src/trumpit/trumpit-client
+guake -e "rails s"
+guake -e "exit"
