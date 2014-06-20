@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+	echo "No argument supplied"
+	exit 1
+fi
+
+GEM_DIR=$(bundle show "$1")
+
+if [ $? -ne 0 ]; then
+    echo "$GEM_DIR"
+    exit 2
+fi
+
+guake -n "$GEM_DIR"
