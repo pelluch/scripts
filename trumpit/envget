@@ -1,0 +1,4 @@
+#!/bin/bash
+
+scp deployer@trumpit.cl:~/.env $HOME/src/trumpit/trumpit-api/.env
+cp $HOME/src/trumpit/trumpit-api/.env $HOME/src/trumpit/trumpit-client/.env
