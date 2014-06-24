@@ -1,6 +1,8 @@
 #!/bin/bash
 
-for d in $(pwd)/* ; do	
+REC=false
+[[ "$1" == "-R" || "$1" == "-r" ]] && REC=true
+for d in $(ls -d */) ; do	
 	cd "$d"
 	if [ -d ".git" ]; then
 		echo "Found git repository at $d"

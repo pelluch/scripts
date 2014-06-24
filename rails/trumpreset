@@ -1,11 +1,15 @@
 #!/bin/bash
 
-killall ruby
+cd /home/pablo/src/trumpit/trumpit-api
+[ -f tmp/pids/server.pid ] && kill -TERM $(cat tmp/pids/server.pid)
+[ -f tmp/pids/rpush.pid ] && kill -TERM $(cat tmp/pids/rpush.pid)
 guake -n /home/pablo/src/trumpit/trumpit-api
 guake -e "rpush development"
 guake -e "rails s -p 3001"
 guake -e "exit"
 
+cd /home/pablo/src/trumpit/trumpit-client
+[ -f tmp/pids/server.pid ] && kill -TERM $(cat tmp/pids/server.pid)
 guake -n /home/pablo/src/trumpit/trumpit-client
 guake -e "rails s"
 guake -e "exit"
