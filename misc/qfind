@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [[ ! "$1" == "-"* ]] ; then
+  REGEX="$1"
+  shift 1
+fi
+
+while getopts :i flag ; do
+  case "$flag" in
+    i)
+      GREP_OPTS="-i"
+      ;;
+    ?)
+      echo 'Invalid argument'
+      exit 1
+      ;;
+  esac
+done
+
+if [ -z "$REGEX" ]; then
+  shift $(( OPTIND-1 ))
+  REGEX="$1"
+fi
+
+find . -type d -regextype posix-egrep -regex ".*\.(repo|git)" -prune -o -print | grep --color $GREP_OPTS $REGEX
