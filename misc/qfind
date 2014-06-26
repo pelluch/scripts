@@ -5,10 +5,12 @@ if [[ ! "$1" == "-"* ]] ; then
   shift 1
 fi
 
-while getopts :i flag ; do
+GREP_OPTS="-i"
+
+while getopts :c flag ; do
   case "$flag" in
-    i)
-      GREP_OPTS="-i"
+    c)
+      GREP_OPTS=""
       ;;
     ?)
       echo 'Invalid argument'
