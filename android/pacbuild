@@ -8,11 +8,11 @@ fi
 device=$1
 export PACMAN_SRC=/home/pablo/android/src/pacman
 export JAVA_HOME=/opt/java6
-export PATH=/opt/java6/bin:$PATH
+export PATH=/opt/java6/bin:/opt/java6/jre/bin:$PATH
 export USE_CCACHE=1
 export OUT_DIR_COMMON_BASE=/home/pablo/android/builds
 export CCACHE_DIR=$HOME/.ccache
-export PREBUILTS_DIR=/home/pablo/android/pacman
+export PREBUILTS_DIR=/home/pablo/android/prebuilt/roms/$device
 
 rm -rf $OUT_DIR_COMMON_BASE/pacman/*
 mkdir -p "$OUT_DIR_COMMON_BASE"
@@ -26,8 +26,7 @@ sudo pyversion 2
 sudo pyversion 3
 
 cd $OUT_DIR_COMMON_BASE/pacman/target/product/$device
-for f in pac_*zip* ; do
-	cp $f "$PREBUILTS_DIR/"
-done
+rm -f $PREBUILTS_DIR/*.zip
+cp pac*.zip $PREBUILTS_DIR/
 
 echo "All done"
