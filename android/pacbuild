@@ -1,11 +1,31 @@
 #!/bin/bash
 
-if [ -z $1 ] ; then
-	echo 'Please specify a device (mako/hammerhead)'
-	exit 1
-fi
+DEVICE="hammerhead"
 
-device=$1
+while getopts ":d:sr" opt; do
+  case $opt in
+    d)
+      DEVICE="$OPTARG"
+      ;;
+    s)
+      SYNC=1
+      ;;
+    r)
+      REMOVE=1
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+echo "Building for device $DEVICE"
+
 export PACMAN_SRC=/home/pablo/android/src/pacman
 export JAVA_HOME=/opt/java6
 export PATH=/opt/java6/bin:/opt/java6/jre/bin:$PATH
@@ -17,16 +37,24 @@ export PREBUILTS_DIR=/home/pablo/android/prebuilt/roms/$device
 rm -rf $OUT_DIR_COMMON_BASE/pacman/*
 mkdir -p "$OUT_DIR_COMMON_BASE"
 
-sudo pyversion 3
 cd $PACMAN_SRC
-repo sync -j4
+
+if [ ! -z $SYNC ] ; then
+  echo "Syncing repository"
+  sudo pyversion 3
+  repo sync -j8
+fi
 
 sudo pyversion 2
-./build-pac.sh $device
+./build-pac.sh $DEVICE
 sudo pyversion 3
 
-cd $OUT_DIR_COMMON_BASE/pacman/target/product/$device
-rm -f $PREBUILTS_DIR/*.zip
+cd $OUT_DIR_COMMON_BASE/pacman/target/product/$DEVICE
+
+if [ ! -z $REMOVE ] ; then
+  rm -f $PREBUILTS_DIR/*.zip
+fi
+
 cp pac*.zip $PREBUILTS_DIR/
 
 echo "All done"
