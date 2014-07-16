@@ -52,9 +52,9 @@ sudo pyversion 3
 cd $OUT_DIR_COMMON_BASE/pacman/target/product/$DEVICE
 
 if [ ! -z $REMOVE ] ; then
-  rm -f $PREBUILTS_DIR/*.zip
+  rm -f $PREBUILTS_DIR/$DEVICE/*.zip
 fi
 
-cp pac*.zip $PREBUILTS_DIR/
+cp pac*.zip $PREBUILTS_DIR/$DEVICE/
 
 echo "All done"
