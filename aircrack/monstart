@@ -1,0 +1,12 @@
+#!/bin/bash
+
+sudo rfkill unblock wifi
+sleep 2
+sudo airmon-ng stop mon0
+sleep 2
+sudo airmon-ng start wlp7s0
+sleep 2
+mkdir -p $HOME/capture
+cd $HOME/capture
+sudo rm capture*
+sudo airodump-ng mon0 -w output

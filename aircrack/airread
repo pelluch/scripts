@@ -1,0 +1,11 @@
+#!/bin/env python
+
+from xml.dom import minidom
+from os import chdir
+
+chdir('/home/pablo/capture')
+xmldoc = minidom.parse('output-01.kismet.netxml')
+itemlist = xmldoc.getElementsByTagName('BSSID')
+
+for s in itemlist :
+    print(s.childNodes[0].nodeValue)

@@ -2,7 +2,7 @@
 
 DEVICE="hammerhead"
 
-while getopts ":d:sr" opt; do
+while getopts ":d:srpv" opt; do
   case $opt in
     d)
       DEVICE="$OPTARG"
@@ -13,6 +13,9 @@ while getopts ":d:sr" opt; do
     r)
       REMOVE=1
       ;;
+    p)
+	    SHUTDOWN=1
+	    ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       exit 1
@@ -46,7 +49,7 @@ if [ ! -z $SYNC ] ; then
 fi
 
 sudo pyversion 2
-./build-pac.sh $DEVICE
+./build-pac.sh "$DEVICE"
 sudo pyversion 3
 
 cd $OUT_DIR_COMMON_BASE/pacman/target/product/$DEVICE
@@ -58,3 +61,7 @@ fi
 cp pac*.zip $PREBUILTS_DIR/$DEVICE/
 
 echo "All done"
+
+if [ ! -z $SHUTDOWN ] ; then
+  sudo systemctl poweroff
+fi
