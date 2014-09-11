@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" -s'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias rbclean-dry='gem cleanup --dryrun'
+alias rbclean='gem cleanup'
+alias subl2='subl'
+alias chrome='google-chrome-stable'
+alias lines='ls | wc -l'
+alias logcat='coloredlogcat.py'
