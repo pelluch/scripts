@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd $HOME/aur/bin
+sudo pacman -U *.xz --needed
+rm *
