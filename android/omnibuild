@@ -1,0 +1,25 @@
+#!/bin/bash
+
+export OMNI_SRC=/run/media/pablo/storage/data/android/src/omni
+export USE_CCACHE=1
+export OUT_DIR_COMMON_BASE=/run/media/pablo/storage/data/android/builds
+export CCACHE_DIR=/run/media/pablo/storage/data/android/ccache
+
+rm -rf $OUT_DIR_COMMON_BASE/omni
+
+. /usr/bin/virtualenvwrapper.sh
+mkvirtualenv -p `which python2` python2
+workon python2
+
+cd $OMNI_SRC
+
+. build/envsetup.sh
+
+breakfast hammerhead
+cp vendor/lge/hammerhead/device-vendor.mk vendor/lge/hammerhead/device-hammerhead.mk
+
+brunch hammerhead
+
+deactivate
+
+echo "All done"

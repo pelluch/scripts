@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+  then
+    echo "No argument supplied"
+    exit 1
+fi
+
+mkdir -p "$HOME/abs"
+
+[ -d "/var/abs/$1" ] && rm -rf "$HOME/abs/$1" && cp -r "/var/abs/$1" "$HOME/abs/"
