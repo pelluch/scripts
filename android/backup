@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$1" ] ; then
+    echo "No argument supplied"
+    exit 1
+fi
+
+NAME="$1"
+
+for folder in $(cat backup-list) ; do
+    adb pull "/sdcard/$folder" "$NAME/$folder"
+done
