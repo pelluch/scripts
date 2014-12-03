@@ -1,0 +1,7 @@
+#!/bin/bash
+
+DBDIR=/home/pablo/updatedb
+
+for db in $(ls $DBDIR) ; do
+	locate -d $DBDIR/$db "$@"
+done

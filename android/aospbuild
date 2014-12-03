@@ -1,27 +1,23 @@
 #!/bin/bash
 
-export JAVA_HOME=/opt/java6
-export PATH=/opt/java6/bin:$PATH
+export AOSP_SRC=/run/media/pablo/storage/data/android/src/aosp
 export USE_CCACHE=1
-export OUT_DIR_COMMON_BASE=/home/pablo/data/android/aosp/build
-export CCACHE_DIR=/home/pablo/data/android/aosp/ccache
-export AOSP_SRC=/run/media/pablo/storage/data/android/aosp/src
+export OUT_DIR_COMMON_BASE=/run/media/pablo/storage/data/android/builds
+export CCACHE_DIR=/run/media/pablo/storage/data/android/ccache
 
-pyversion 2
+rm -rf $OUT_DIR_COMMON_BASE/aosp
+
+. /usr/bin/virtualenvwrapper.sh
+mkvirtualenv -p `which python2` python2
+workon python2
 
 cd $AOSP_SRC
-ln -s -f $HOME/src/make-3.82/make $HOME/bin/make
 
 . build/envsetup.sh
-lunch aosp_mako-userdebug
 
-export T="$(date +%s)"
+lunch aosp_hammerhead-user
 make -j8
-export T="$(($(date +%s)-T))"
 
-echo "Time in seconds: ${T}"
+deactivate
 
-pyversion 3
-rm -f $HOME/bin/make
-
-echo "All done!"
+echo "All done"

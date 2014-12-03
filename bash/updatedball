@@ -1,0 +1,18 @@
+#!/bin/bash
+
+DBDIR=/home/pablo/updatedb
+
+sudo mount -U 4E1AEA7B1AEA6007
+sudo mount -U 52EEDBC3EEDB9D93
+
+echo "root"
+sudo updatedb --database-root / --output=$DBDIR/root.locatedb
+echo "windows"
+sudo updatedb --database-root /run/media/pablo/windows --output=$DBDIR/windows.locatedb
+echo "windows-8"
+sudo updatedb --database-root /run/media/pablo/windows-8 --output=$DBDIR/windows-8.locatedb
+echo "passport"
+sudo updatedb --database-root /run/media/pablo/passport --output=$DBDIR/passport.locatedb
+echo "storage"
+sudo updatedb --database-root /run/media/pablo/storage --output=$DBDIR/storage.locatedb
+echo "done"
