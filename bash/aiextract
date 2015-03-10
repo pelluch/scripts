@@ -10,7 +10,6 @@ find -name "*\.ai" | while IFS= read -r fname ; do
 		convert -density 300 "$fname[$i]" "${fname%.ai}_${i}.png"
 		convert -antialias "${fname%.ai}_${i}.png" \
 		-fuzz 40% \
-		-transparent white \
 		 "${fname%.ai}_${i}.png" 
 	done  
 done

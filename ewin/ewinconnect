@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z "$1" ] ; then
+    RESOLUTION="1366x768"
+else
+    RESOLUTION="$1"
+fi
+echo $RESOLUTION
+rdesktop 54.174.183.176 -u Administrator -p "TcPvW=(SZH4" -g $RESOLUTION
