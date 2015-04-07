@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -i /home/pablo/src/ewin/tanfacil/docs/ubuntu.pem ubuntu@54.0.24.103
