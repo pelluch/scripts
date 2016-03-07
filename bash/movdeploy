@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ssh -t -p60 -i $HOME/.ssh/plluch.key plluch@54.149.42.183 "sudo -i -u apache '/var/www/scripts/deploy'"
+ssh -t -p60 -i $HOME/.ssh/plluch.key plluch@54.149.43.40 "sudo -i -u apache '/var/www/scripts/deploy'"

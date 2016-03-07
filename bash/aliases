@@ -13,3 +13,15 @@ alias chrome='google-chrome-stable'
 alias nfiles='ls | wc -l'
 alias logcat='coloredlogcat.py'
 alias pyversion2='source /usr/bin/virtualenvwrapper.sh && workon python2'
+alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
+# alias coloredlogcat='adb logcat -v brief | pidcat'
+
+coloredlogcat ()
+{
+    if [ -z "$1" ]                           # Is parameter #1 zero length?
+    then
+        adb logcat -v brief | pidcat
+    else
+        adb logcat -v brief | pidcat "$1"
+    fi
+}

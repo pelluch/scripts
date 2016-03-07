@@ -3,17 +3,18 @@
 export AOSP_SRC=/run/media/pablo/storage/data/android/src/aosp
 export USE_CCACHE=1
 export OUT_DIR_COMMON_BASE=/run/media/pablo/storage/data/android/builds
-export CCACHE_DIR=/run/media/pablo/storage/data/android/ccache
+export CCACHE_DIR=/home/pablo/android/ccache
+export CCACHE_ENABLE=1
 
 rm -rf $OUT_DIR_COMMON_BASE/aosp
 
 . /usr/bin/virtualenvwrapper.sh
-mkvirtualenv -p `which python2` python2
+# mkvirtualenv -p `which python2` python2an
 workon python2
 
 cd $AOSP_SRC
 
-. build/envsetup.sh
+LANG=C . build/envsetup.sh
 
 lunch aosp_hammerhead-user
 make -j8
