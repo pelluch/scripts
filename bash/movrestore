@@ -1,0 +1,26 @@
+#!/bin/bash
+
+BACKUP_DIR=/home/pablo/src/ewin/movistar/backups
+DATE=`date +%Y-%m-%d`
+
+
+ssh -p60 -i $HOME/.ssh/plluch.key plluch@54.149.42.183 "mongodump -d movistar_ch -o ."
+ssh -p60 -i $HOME/.ssh/plluch.key plluch@54.149.42.183 "./backup"
+
+cd $BACKUP_DIR
+rm -rf $DATE
+mkdir $DATE
+cd $DATE
+
+rm -rf movistar_ch
+rm -f dump.sql
+
+scp -P60 -r -i $HOME/.ssh/plluch.key plluch@54.149.42.183:~/movistar_ch .
+scp -P60 -r -i $HOME/.ssh/plluch.key plluch@54.149.42.183:~/dump.sql .
+
+mongo movistar_ch --eval "db.dropDatabase()"
+mongorestore -d movistar_ch movistar_ch
+
+mysql -uroot -e "drop database if exists movistar_ch;"
+mysql -uroot -e "create database movistar_ch;"
+mysql -uroot movistar_ch < dump.sql
