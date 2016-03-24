@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -i $HOME/.ssh/ubuntu.pem ubuntu@54.164.4.220
