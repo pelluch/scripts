@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -i $HOME/.ssh/troka-dev.pem ubuntu@52.205.251.101
