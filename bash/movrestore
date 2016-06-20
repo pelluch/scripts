@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKUP_DIR=/home/pablo/src/ewin/movistar/backups
+BACKUP_DIR=/run/media/pablo/storage/data/src/ewin/movistar/backups
 DATE=`date +%Y-%m-%d`
 
 

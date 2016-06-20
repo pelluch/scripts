@@ -1,3 +1,5 @@
 #!/bin/bash
 
-ssh -i /home/pablo/.ssh/ubuntu.pem ubuntu@52.0.24.103
+ssh -i /home/pablo/.ssh/ubuntu.pem ubuntu@52.86.125.35
+
+
