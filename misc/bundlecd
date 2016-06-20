@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 if [ -z "$1" ]; then
 	echo "No argument supplied"
 	exit 1
@@ -11,5 +12,28 @@ if [ $? -ne 0 ]; then
     echo "$GEM_DIR"
     exit 2
 fi
+
+
+case "$(uname -s)" in
+
+   Darwin)
+     echo 'Mac OS X'
+     ;;
+
+   Linux)
+     echo 'Linux'
+     ;;
+
+   CYGWIN*|MINGW32*|MSYS*)
+     echo 'MS Windows'
+     ;;
+
+   # Add here more strings to compare
+   # See correspondence table at the bottom of this answer
+
+   *)
+     echo 'other OS' 
+     ;;
+esac
 
 guake -n "$GEM_DIR"
