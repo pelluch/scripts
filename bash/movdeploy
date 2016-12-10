@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# ssh -t -p60 -i $HOME/.ssh/plluch.key plluch@54.149.42.183 "sudo -i -u apache '/var/www/bin/deploy'"
-# ssh -t -p60 -i $HOME/.ssh/plluch.key plluch@54.149.43.40 "sudo -i -u apache '/var/www/bin/deploy'"
-ssh -t -p60 -i $HOME/.ssh/plluch-dev.key plluch@54.148.233.239 "sudo -i -u apache '/var/www/bin/deploy'"
+ssh -t -p60 -i $HOME/.ssh/plluch.key plluch@54.149.42.183 "sudo -i -u apache '/var/www/bin/deploy'"
+ssh -t -p60 -i $HOME/.ssh/plluch.key plluch@54.149.43.40 "sudo -i -u apache '/var/www/bin/deploy'"
+# ssh -t -p60 -i $HOME/.ssh/plluch-dev.key plluch@54.148.233.239 "sudo -i -u apache '/var/www/bin/deploy'"
