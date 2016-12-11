@@ -1,8 +1,7 @@
 #!/bin/bash
 
-BACKUP_DIR=/run/media/pablo/storage/data/src/ewin/movistar/backups
+BACKUP_DIR=$HOME/src/ewin/movistar/backups
 DATE=`date +%Y-%m-%d`
-
 
 ssh -p60 -i $HOME/.ssh/plluch.key plluch@54.149.42.183 "mongodump -d movistar_ch -o ."
 ssh -p60 -i $HOME/.ssh/plluch.key plluch@54.149.42.183 "./backup"

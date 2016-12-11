@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -p60 -i $HOME/.ssh/echeckit_production.pem ubuntu@52.3.170.85

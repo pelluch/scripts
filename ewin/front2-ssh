@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -i $HOME/.ssh/plluch.key plluch@54.149.43.40 -p60
